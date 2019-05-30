@@ -1,7 +1,7 @@
 from turtle import Screen, Turtle
 from random import randint
-width = 500
-height = 200
+width = 200
+height = 150
 
 screen = Screen()
 head = Turtle()
@@ -110,6 +110,8 @@ def updateSnake():
         apple.clear()
         apple.penup()
         apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
+        while apple.pos() in posarr:
+            apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
         apple.pendown()
         apple.dot()
 
@@ -136,4 +138,4 @@ screen.onkey(moveleft, "Left")
 score()
 screen.ontimer(updateSnake, 500)
 screen.listen()
-screen.exitonclick()
+screen.mainloop()

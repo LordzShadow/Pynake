@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="786c6371-255b-4a02-a66d-207635c98a36" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Pynake.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/snake.py" beforeDir="false" afterPath="$PROJECT_DIR$/snake.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/snake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="123" column="38" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
+            <state relative-caret-position="66">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -122,12 +118,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559220399770</updated>
-      <workItem from="1559220401175" duration="1754000" />
+      <workItem from="1559220401175" duration="2944000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1754000" />
+    <option name="totallyTimeSpent" value="2944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
@@ -160,13 +156,13 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Pynake$snake.coverage" NAME="snake Coverage Results" MODIFIED="1559222071713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Pynake$snake.coverage" NAME="snake Coverage Results" MODIFIED="1559223098701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/snake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="123" column="38" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
+        <state relative-caret-position="66">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
