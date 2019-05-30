@@ -1,19 +1,21 @@
 from turtle import Screen, Turtle
 from random import randint
+width = 500
+height = 200
+
 screen = Screen()
-screen.screensize(250, 250)
 head = Turtle()
 body = Turtle()
 apple = Turtle()
 screen.delay(0)
-size = 10
+size = 40
+points = 0
 body.pencolor("white")
 body.hideturtle()
 apple.hideturtle()
 texter = Turtle()
 texter.hideturtle()
 texter.penup()
-apple.dot()
 
 def Board(w, h):
     x = w/2
@@ -47,10 +49,18 @@ def moveright():
     if head.heading() != 180:
         head.seth(0)
 
+def score():
+    texter.setpos(0, bordery + 100)
+    texter.pendown()
+    texter.clear()
+    texter.write("Score:" + str(points), align="center", font=("Arial", 12, "normal"))
+    texter.penup()
+
 def restart():
     global size
     texter.clear()
-    size = 10
+    size = 40
+    score()
     head.penup()
     body.penup()
     head.clear()
@@ -65,15 +75,19 @@ def restart():
     screen.ontimer(updateSnake, 500)
 
 def startover():
+    global points
     texter.setpos(0, 0)
     texter.color("red")
     texter.write("YOU DEAD", font=("Arial", 40, "normal"), align="center")
     texter.setpos(0, -100)
     texter.write("Press 'r' to start over", font=("Arial", 15, "normal"), align="center")
+    points = 0
 
 def updateSnake():
     global size
+    global points
 
+    off = 5
     head.forward(1)
     hx, hy = head.pos()
     hx = round(hx, 0)
@@ -88,9 +102,12 @@ def updateSnake():
         return None
 
     ax,ay = apple.pos()
-    if ax-3 < hx < ax+3 and ay-3 < hy < ay+3:
-        apple.clear()
+    if ax-off < hx < ax+off and ay-off < hy < ay+off:
+
         size += 10
+        points += 10
+        score()
+        apple.clear()
         apple.penup()
         apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
         apple.pendown()
@@ -104,13 +121,19 @@ def updateSnake():
     screen.ontimer(updateSnake, 10)
 
 
-borderx, bordery = Board(750, 500)
+borderx, bordery = Board(width, height)
+apple.penup()
+apple.pencolor("red")
+texter.pencolor("red")
+apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
+apple.pendown()
+apple.dot()
 screen.onkey(moveup, "Up")
 screen.onkey(movedown, "Down")
 screen.onkey(moveright, "Right")
 screen.onkey(moveleft, "Left")
 
-
+score()
 screen.ontimer(updateSnake, 500)
 screen.listen()
 screen.exitonclick()
