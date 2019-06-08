@@ -1,141 +1,115 @@
-from turtle import Screen, Turtle
 from random import randint
-width = 200
-height = 150
+from turtle import Turtle
 
-screen = Screen()
-head = Turtle()
-body = Turtle()
-apple = Turtle()
-screen.delay(0)
-size = 40
-points = 0
-body.pencolor("white")
-body.hideturtle()
-apple.hideturtle()
-texter = Turtle()
-texter.hideturtle()
-texter.penup()
+class Snake:
 
-def Board(w, h):
-    x = w/2
-    y = h/2
-    marker = Turtle()
-    marker.hideturtle()
-    marker.penup()
-    marker.setpos(x, y)
-    marker.pendown()
-    marker.setpos(-x, y)
-    marker.setpos(-x, -y)
-    marker.setpos(x, -y)
-    marker.setpos(x, y)
-    return x, y
+    def __init__(self, screen, border, size):
+        self.head = Turtle()
+        self.body = Turtle()
+        self.texter = Turtle()
+        self.apple = Turtle()
 
-posarr = []
+        self.body.pencolor("white")
+        self.body.hideturtle()
+        self.apple.hideturtle()
+        self.texter.hideturtle()
+        self.texter.penup()
+        self.texter.pencolor("red")
 
-def moveup():
-    if head.heading() != 270:
-        head.seth(90)
+        self.screen = screen
+        self.border = border
+        self.posarr = []
+        self.size = size
+        self.points = 0
 
-def movedown():
-    if head.heading() != 90:
-        head.seth(270)
+        self.apple.penup()
+        self.apple.setpos(randint(-border.x + 5, border.x - 5), randint(-border.y + 5, border.y - 5))
+        self.apple.pencolor("red")
+        self.apple.pendown()
+        self.apple.dot()
 
-def moveleft():
-    if head.heading() != 0:
-        head.seth(180)
+    def updateSnake(self):
+        off = 5
+        self.head.forward(1)
+        hx, hy = self.head.pos()
+        hx = round(hx, 0)
+        hy = round(hy, 0)
 
-def moveright():
-    if head.heading() != 180:
-        head.seth(0)
+        if ((hx, hy) in self.posarr and (hx, hy) != self.posarr[-1])\
+                or hx >= self.border.x or hx <= -self.border.x or hy >= self.border.y or hy <= -self.border.y:
+            self.head.penup()
+            self.head.color("red")
+            self.startover()
+            self.screen.onkey(self.restart, "r")
+            return None
 
-def score():
-    texter.setpos(0, bordery + 100)
-    texter.pendown()
-    texter.clear()
-    texter.write("Score:" + str(points), align="center", font=("Arial", 12, "normal"))
-    texter.penup()
+        ax, ay = self.apple.pos()
+        if ax - off < hx < ax + off and ay - off < hy < ay + off:
 
-def restart():
-    global size
-    texter.clear()
-    size = 40
-    score()
-    head.penup()
-    body.penup()
-    head.clear()
-    body.clear()
-    head.home()
-    body.home()
-    posarr.clear()
-    head.color("black")
-    screen.onkey(None, "r")
-    head.pendown()
-    body.pendown()
-    screen.ontimer(updateSnake, 500)
+            self.size += 10
+            self.points += 10
+            self.score()
+            self.apple.clear()
+            self.apple.penup()
+            self.apple.setpos(randint(-self.border.x + 5, self.border.x - 5), randint(-self.border.y + 5, self.border.y - 5))
+            while self.apple.pos() in self.posarr:
+                self.apple.setpos(randint(-self.border.x + 5, self.border.x - 5), randint(-self.border.y + 5, self.border.y - 5))
+            self.apple.pendown()
+            self.apple.dot()
 
-def startover():
-    global points
-    texter.setpos(0, 0)
-    texter.color("red")
-    texter.write("YOU DEAD", font=("Arial", 40, "normal"), align="center")
-    texter.setpos(0, -100)
-    texter.write("Press 'r' to start over", font=("Arial", 15, "normal"), align="center")
-    points = 0
+        self.posarr.append((hx, hy))
+        if len(self.posarr) > self.size:
+            self.body.setpos(self.posarr[0])
+            self.posarr.pop(0)
+        self.screen.ontimer(self.updateSnake, 10)
 
-def updateSnake():
-    global size
-    global points
+    def moveup(self):
+        if self.head.heading() != 270:
+            self.head.seth(90)
 
-    off = 5
-    head.forward(1)
-    hx, hy = head.pos()
-    hx = round(hx, 0)
-    hy = round(hy, 0)
+    def movedown(self):
+        if self.head.heading() != 90:
+            self.head.seth(270)
 
-    if ((hx, hy) in posarr and (hx, hy) != posarr[-1]) or hx >= borderx or hx <= -borderx or hy >= bordery or hy <= -bordery:
-        head.penup()
-        head.color("red")
-        print("ded")
-        startover()
-        screen.onkey(restart, "r")
-        return None
+    def moveleft(self):
+        if self.head.heading() != 0:
+            self.head.seth(180)
 
-    ax,ay = apple.pos()
-    if ax-off < hx < ax+off and ay-off < hy < ay+off:
+    def moveright(self):
+        if self.head.heading() != 180:
+            self.head.seth(0)
 
-        size += 10
-        points += 10
-        score()
-        apple.clear()
-        apple.penup()
-        apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
-        while apple.pos() in posarr:
-            apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
-        apple.pendown()
-        apple.dot()
+    def score(self):
+        self.texter.setpos(0, self.border.y + 100)
+        self.texter.pendown()
+        self.texter.clear()
+        self.texter.write("Score:" + str(self.points), align="center", font=("Arial", 12, "normal"))
+        self.texter.penup()
+
+    def restart(self):
+        self.texter.clear()
+        self.size = 40
+        self.score()
+        self.head.penup()
+        self.body.penup()
+        self.head.clear()
+        self.body.clear()
+        self.head.home()
+        self.body.home()
+        self.posarr.clear()
+        self.head.color("black")
+        self.screen.onkey(None, "r")
+        self.head.pendown()
+        self.body.pendown()
+        self.screen.ontimer(self.updateSnake, 500)
+
+    def startover(self):
+        self.texter.setpos(0, 0)
+        self.texter.color("red")
+        self.texter.write("YOU DEAD", font=("Arial", 40, "normal"), align="center")
+        self.texter.setpos(0, -100)
+        self.texter.write("Press 'r' to start over", font=("Arial", 15, "normal"), align="center")
+        self.points = 0
 
 
-    posarr.append((hx, hy))
-    if len(posarr) > size:
-        body.setpos(posarr[0])
-        posarr.pop(0)
-    screen.ontimer(updateSnake, 10)
 
-
-borderx, bordery = Board(width, height)
-apple.penup()
-apple.pencolor("red")
-texter.pencolor("red")
-apple.setpos(randint(-borderx + 5, borderx - 5), randint(-bordery + 5, bordery - 5))
-apple.pendown()
-apple.dot()
-screen.onkey(moveup, "Up")
-screen.onkey(movedown, "Down")
-screen.onkey(moveright, "Right")
-screen.onkey(moveleft, "Left")
-
-score()
-screen.ontimer(updateSnake, 500)
-screen.listen()
-screen.mainloop()
