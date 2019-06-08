@@ -14,7 +14,7 @@ class Snake:
         self.apple.hideturtle()
         self.texter.hideturtle()
         self.texter.penup()
-        self.texter.pencolor("red")
+        self.texter.color("red")
 
         self.screen = screen
         self.border = border
@@ -27,6 +27,19 @@ class Snake:
         self.apple.pencolor("red")
         self.apple.pendown()
         self.apple.dot()
+
+    def start(self):
+
+        self.texter.setpos(0, 0)
+        self.texter.pendown()
+        self.texter.write("Press SPACE to start", font=("Arial", 20, "bold"), align="center")
+        self.texter.penup()
+        self.screen.onkey(self.run, "space")
+
+    def run(self):
+        self.texter.clear()
+        self.screen.onkey(None, "space")
+        self.updateSnake()
 
     def updateSnake(self):
         off = 5

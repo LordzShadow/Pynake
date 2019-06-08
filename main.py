@@ -5,6 +5,7 @@ width = 200
 height = 150
 
 screen = Screen()
+screen.setup(width=width+500, height=height+400, startx=3000, starty=-800)
 screen.delay(0)
 
 border = Board(width, height)
@@ -14,8 +15,7 @@ screen.onkey(snake.moveup, "Up")
 screen.onkey(snake.movedown, "Down")
 screen.onkey(snake.moveright, "Right")
 screen.onkey(snake.moveleft, "Left")
-
 snake.score()
-screen.ontimer(snake.updateSnake, 500)
+snake.start()
 screen.listen()
 screen.mainloop()
