@@ -5,7 +5,7 @@ width = 200
 height = 150
 
 screen = Screen()
-screen.setup(width=width+500, height=height+400, startx=3000, starty=-800)
+screen.setup(width=width+500, height=height+400, startx=-1, starty=0)
 screen.delay(0)
 
 border = Board(width, height)
