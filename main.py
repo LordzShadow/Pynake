@@ -5,8 +5,9 @@ width = 200
 height = 150
 
 screen = Screen()
-screen.setup(width=width+500, height=height+400, startx=-1, starty=0)
+screen.setup(width=width+250, height=height+400, startx=-1, starty=0)
 screen.delay(0)
+screen.title("Pynake")
 
 border = Board(width, height)
 

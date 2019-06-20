@@ -21,6 +21,7 @@ class Snake:
         self.posarr = []
         self.size = size
         self.points = 0
+        self.highest = 0
 
         self.apple.penup()
         self.apple.setpos(randint(-border.x + 5, border.x - 5), randint(-border.y + 5, border.y - 5))
@@ -39,6 +40,7 @@ class Snake:
     def run(self):
         self.texter.clear()
         self.screen.onkey(None, "space")
+        self.score()
         self.updateSnake()
 
     def updateSnake(self):
@@ -117,10 +119,14 @@ class Snake:
         self.screen.ontimer(self.updateSnake, 500)
 
     def startover(self):
-        self.texter.setpos(0, 0)
+        if self.points > self.highest:
+            self.highest = self.points
+        self.texter.setpos(0, self.border.y+30)
         self.texter.color("red")
         self.texter.write("YOU DEAD", font=("Arial", 40, "normal"), align="center")
-        self.texter.setpos(0, -100)
+        self.texter.setpos(0, -self.border.y-40)
+        self.texter.write("Highscore:"+ str(self.highest), font=("Arial", 20, "normal"), align="center")
+        self.texter.setpos(0, -self.border.y-65)
         self.texter.write("Press 'r' to start over", font=("Arial", 15, "normal"), align="center")
         self.points = 0
 
