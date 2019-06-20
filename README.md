@@ -20,3 +20,5 @@ python3 main.py
 ### Changing the screen size
 To change the screen size you need to edit main.py lines 4 and 5
 
+![](demo.gif)
+
